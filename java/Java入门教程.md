@@ -53,12 +53,12 @@ static方法和static成员实现等价功能
 
 ## Java开发环境配置
 ### Windows环境安装
-* 下载合适的JDK版本（http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html），点击安装，下一步直到完成
+* 下载合适的[JDK版本](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html)，点击安装，下一步直到完成
 * 添加JAVA_HOME环境变量
 * 将$JAVA_HOME/bin添加到$PATH中
 
 ### Linux环境安装
-略
+	略
 
 ## Java基础语法
 ### 
