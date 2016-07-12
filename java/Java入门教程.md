@@ -44,9 +44,14 @@ static方法和static成员实现等价功能
 12. Java提供丰富的标准库：多线程、JDBC、Socket、RMI等
 
 
-
-
 ### Java发展趋势
+1. 模块化：对模块化提供语法层面的支持
+2. 混合编程：Clojure、JRuby、JPython、Groovy等运行于JVM
+3. 多核并行
+4. 丰富语法：Lambda表达式
+
+
+
 ## Java开发环境配置
 
 ## Java基础语法
