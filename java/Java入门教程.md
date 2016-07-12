@@ -47,12 +47,18 @@ static方法和static成员实现等价功能
 ### Java发展趋势
 1. 模块化：对模块化提供语法层面的支持
 2. 混合编程：Clojure、JRuby、JPython、Groovy等运行于JVM
-3. 多核并行
+3. 多核并行：OpenJDK的Sumatra项目
 4. 丰富语法：Lambda表达式
 
 
-
 ## Java开发环境配置
+### Windows环境安装
+* 下载合适的JDK版本（http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html），点击安装，下一步直到完成
+* 添加JAVA_HOME环境变量
+* 将$JAVA_HOME/bin添加到$PATH中
+
+### Linux环境安装
+略
 
 ## Java基础语法
 ### 
