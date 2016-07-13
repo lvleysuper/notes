@@ -43,7 +43,6 @@ static方法和static成员实现等价功能
 11. Java不提供多重继承机制
 12. Java提供丰富的标准库：多线程、JDBC、Socket、RMI等
 
-
 ### Java发展趋势
 1. 模块化：对模块化提供语法层面的支持
 2. 混合编程：Clojure、JRuby、JPython、Groovy等运行于JVM
@@ -52,15 +51,113 @@ static方法和static成员实现等价功能
 
 
 ## Java开发环境配置
-### Windows环境安装
-* 下载合适的[JDK版本](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html)，点击安装，下一步直到完成
-* 添加JAVA_HOME环境变量
-* 将$JAVA_HOME/bin添加到$PATH中
+### windows系统安装java
+#### 下载、安装和环境变量配置
+* 下载Java开发工具包JDK，[下载地址](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* 以64位系统为例，选择Windows x64版本
+* 配置环境变量：[计算机]右键[属性]，选择[高级系统设置]，添加[环境变量]
+```
+变量名：JAVA_HOME
+变量值：C:\Program Files (x86)\Java\jdk1.8.0_91        // 要根据自己的实际路径配置
+变量名：CLASSPATH
+变量值：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;         //记得前面有个"."
+变量名：Path
+变量值：%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;
+```
+#### 验证是否安装成功
+* Win+R，输入cmd，在cmd中输入`java --version`，查看是否能输出版本信息
 
-### Linux环境安装
-	略
+
 
 ## Java基础语法
+### 第一个Java程序
+```java
+/*
+*	Author : lvley
+* 	Date : 2016-07-01
+*/
+
+public class HelloWorld{
+	public static void main(String[] args){
+		System.out.println("Hello World"); //打印Hello World
+	}
+}
+```
+保存为HelloWorld.java，在cmd下执行
+```cmd
+C : > javac HelloWorld.java
+C : > java HelloWorld 
+Hello World
+```
+
+**用例说明：**
+* Java支持两种风格的注释，和C++相同
+* 文件名和类名相同
+* 主方法入口：public static void main
+* 首选数组表示方式：String [] args
+* 使用`.`号操作对象方法，不存在指针操作
+* public声明类或方法公有
+* static声明方法为静态方法
+
+### Java标识符
+* 标识符以字母(A-Z,a-z),美元符($)或下划线(_)开始
+* 首字母之后可以是任意字符组合
+* 大小写敏感
+* 关键字不能用作标识符
+和C++类似，除了$开头的区别。
+
+### Java基本数据类型
+* Java坚持"所有都是对象"，但为了底层效率还是引入了基本数据类型
+* Java决定基本类型的大小，不随机器结构变化，这也是Java强移植能力的原因之一
+* Java无unsiged类型，所有基本类型都有封装器类
+
+**基本类型列表**
+
+|主类型|大小(位)|最小值|最大值|封装器类型|
+|------|------|---|---|---|
+|boolean|1|-|-|Boolean|
+|char|16|Unicode 0|Unicode 2^16-1|Character|
+|byte|8|-128|127|Byte|
+|short|16|-2^15|2^15-1|Short|
+|int|32|-2^31|2^31-1|Integer|
+|long|64|-2^63|2^63-1|Long|
+|float|32|-3.40E+38|3.40E+38|Float|
+|double|64|-1.79E+308|1.79E+308|Double|
+
+**封装器类用法示例：**
+```java
+char c = 'x';
+Character ec = new Character('x');
+String str = "1.5";
+float val = Float.parseFloat(str);
+```
+**高精度类型**
+
+不可直接使用运算符操作，必须使用方法调用
+
+* **BigInteger**：支持任意精度的整数
+* **BigDecimal**：支持任意精度的定点数字
+
+
+### Java修饰符
+Java修饰符分为两种：访问控制修饰符和非访问修饰符
+
+#### 访问控制修饰符
+* **default**: 默认的，包内可见，不使用任何修饰符
+* **public**: 公有的，对所有类可见
+* **protected**: 受保护的，对同一包内和所有子类可见
+* **private**: 私有的，同一类内可见
+
+
+#### 非访问修饰符
+* **static**:类方法和类变量
+* **final**:类、方法和变量，final修饰的类不能被继承，修饰的方法不能被继承类重新定义，修饰的变量是常量，不可修改的
+* **abstract**:抽象类和抽象方法
+* **synchronized**:代码块、方法，多线程编程
+* **volatile**:作用同C++，多线程编程
+* **transient**:序列化对象被transient修饰时，jvm跳过该变量
+
+
 ### 
 ### 基本类型
 2. **Java是编译型语言还是解释型语言？**
