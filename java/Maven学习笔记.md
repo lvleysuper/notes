@@ -123,6 +123,11 @@ pom.xml是工程的核心配置文件。
 mvn package
 ```
 
+仅编译test
+```
+mvn test-compile
+```
+
 清理工程及依赖，并编译打包
 
 ```
