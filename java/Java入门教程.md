@@ -92,7 +92,7 @@ Hello World
 
 **用例说明：**
 * Java支持两种风格的注释，和C++相同
-* 文件名和类名相同
+* 文件名和类名相同，一个源文件只能有一个public类，可以有多个非public类
 * 主方法入口：public static void main
 * 首选数组表示方式：String [] args
 * 使用`.`号操作对象方法，不存在指针操作
@@ -106,7 +106,7 @@ Hello World
 * 关键字不能用作标识符
 和C++类似，除了$开头的区别。
 
-### Java基本数据类型
+### Java数据类型
 * Java坚持"所有都是对象"，但为了底层效率还是引入了基本数据类型
 * Java决定基本类型的大小，不随机器结构变化，这也是Java强移植能力的原因之一
 * Java无unsiged类型，所有基本类型都有封装器类
@@ -138,6 +138,95 @@ float val = Float.parseFloat(str);
 * **BigInteger**：支持任意精度的整数
 * **BigDecimal**：支持任意精度的定点数字
 
+**自定义类**
+
+语法：
+```java
+class ATypeName
+{
+	// 方法 ：返回类型 方法名(参数列表) { 方法主体 }
+
+	// 数据成员
+	
+}
+```
+
+## Java中类和对象
+Java是面向对象语言，支持OOP的基本概念:**多态**，**继承**，**封装**，**抽象**，**重载**，**类**，**对象**。
+
+Java中类和对象的概念与C++类似，类是一个模板，用于描述对象的行为和状态；对象是类的一个具体实例，有行为和状态。
+
+通过一个简单的实例来理解Java中类和相关内容：
+```java
+package com.demo;
+import java.util.Date;
+
+class Test
+{
+	public static int UUID = 20160729;
+	private long nativeFileId ;
+	private name;
+
+
+	public Test() {
+		nativeFileId = openFile();
+	}
+
+	public Test(String name){
+		this.name = name;
+	}
+
+	protect void finilize() {
+		closeFile(nativeFileId);
+	}
+
+	public void displayTime(){
+		System.out.println(new Date());
+	}
+
+	native public long openFile() { return 100; }
+	native public void closeFile(long fileId) {}
+
+}
+```
+### 构造与析构
+
+Java中和C++一样也有构造函数，和类名相同，如上例中
+```
+public Test();
+public Test(String name);
+```
+
+构造实例：
+```
+Test t = new Test();
+```
+Java中使用new构造类实例，返回对象引用，Java中不使用指针；Java中new的对象都是在堆上分配内存，当对象不再需要的时候会有垃圾收集器（GC）回收对象内存。
+
+Java中一般不需要显式的释放内存，故没有析构函数。但是可以使用finilize()方法实现资源的释放。上例中native声明
+了2个C++中的本地方法，openFile打开文件，并返回文件句柄；closeFile关闭文件。这种资源在DLL(或so)中申请，GC并不能直接控制，这中情况就需要自动释放文件句柄。
+
+
+### Java包（package）
+为更好的组织类，Java提供包机制，用于区别类名的命名空间，作用类似于C++的namespace。
+
+**包的作用**
+* 把功能相似或相关的类或接口组织在同一个包，方便类的查找和使用
+* 和文件夹一样采用属性目录存储，同一个包中类名字是不同的，不同包中类名字可以相同；当同时调用两个不同包中相同类时，应加上包名加以区分，避免名字冲突
+* 包限定了访问权限，拥有包访问权限的类才能访问包中的类
+
+**创建包**
+```
+package pkg1[.pkg2[.pkg3...]];
+```
+如示例中package com.demo，建议使用域名倒置的方式。对应Test.java位于com/demo目录下。
+
+**引用包**
+```
+import pkg1[.pkg2[.pkg3...]];
+```
+示例中`import java.util.Date`导入了Date类（日期操作类）。
+
 
 ### Java修饰符
 Java修饰符分为两种：访问控制修饰符和非访问修饰符
@@ -150,7 +239,7 @@ Java修饰符分为两种：访问控制修饰符和非访问修饰符
 
 
 #### 非访问修饰符
-* **static**:类方法和类变量
+* **static**:类方法和类变量，Java中无全局变量，可使用static实现类似功能
 * **final**:类、方法和变量，final修饰的类不能被继承，修饰的方法不能被继承类重新定义，修饰的变量是常量，不可修改的
 * **abstract**:抽象类和抽象方法
 * **synchronized**:代码块、方法，多线程编程
@@ -158,7 +247,32 @@ Java修饰符分为两种：访问控制修饰符和非访问修饰符
 * **transient**:序列化对象被transient修饰时，jvm跳过该变量
 
 
-### 
+### Java中变量类型
+Java是强类型语言，声明变量的格式如下：
+```
+type identifier [= value][, identifier [= vlaue] ...];
+```
+type为Java数据类型，identifier为变量名，多个变量使用逗号分隔。
+
+Java有四种变量类型：
+* **局部变量**
+	* 局部变量声明在方法、构造方法或语句块中，执行完就自动销毁
+	* 访问修饰符不能用于局部变量
+	* 局部变量在栈上分配，旨在声明它的语句块中可见
+	* 局部变量必须初始化才可以使用
+* **成员变量**
+	类的成员变量，和实例生命周期相同
+* **实例变量**
+	new创建，声明周期GC控制
+* **类变量**（全局变量）
+	* static声明静态变量，必须在构造方法和与语句块之外
+	* 不论创建多少个对象，都只有一份拷贝
+	* 程序开始创建，程序结束销毁
+	* 可通过ClassName.VariableName的方式访问
+	* public static final类型，变量名车必须使用大写字母
+
+
+
 ### 基本类型
 2. **Java是编译型语言还是解释型语言？**
 	* Java源文件(.java)需要通过javac编译成.class字节码文件才能被JVM解释，在运行阶段即时(JIT)编译。
