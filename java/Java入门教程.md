@@ -8,6 +8,10 @@ Java是**Java语言**和**Java平台**的总称。
 * **Java语言**：静态类型、面向对象的语言。
 * **Java平台**：提供运行时环境的软件。Java虚拟机(JVM)负责把类文件形式(字节码)  的代码链接起来并执行。Java作为软件系统之所以成功，主要因为它是一种标准。
 
+### Java能做什么
+
+### Java
+
 ### Java发展史
 * 1991年4月,James Gosling博士主导的Green Project启动，目的是开发能在消费性电子产品（机顶盒、冰箱等）上运行的程序架构。这个计划的产品就是Java的前身Oak，Oak在消费市场并不算成功；1995年随着互联网潮流的兴起，Oak迅速找到适合自己发展的市场定位蜕变为Java语言。
 * 1995年5月23日，Oak语言更名为Java，在SunWorld发布Java1.0，并提出"Write Once,Run AnyWhere"的口号。
@@ -411,3 +415,74 @@ public class Test{
 抽象类使用abstract声明，抽象类除了不能实例化对象之外，其他功能依然存在，成员方法、成员变量和构造方法及访问方式和普通类都一样。抽象类不能实例化，所以必须被继承才能使用。
 
 使用abstract声明的方法是抽象方法，抽象方法只包含方法名没有方法体，作用和C++中PURE宏定义类似。包含抽象方法的类，一定是抽象类；任何子类必须重写父类的抽象方法，否则自身也为抽象类。
+
+
+## Java IO
+Java之所以广泛流传，起强大、丰富、简明的类库功不可没，编程时要解决的大多数问题几乎都可以在其中找到支持。然而老版本的Java有些地方并不是那么给力，比如Java IO的API。在Java1.4发布
+之前，Java一直没能在服务器端领域得到重用，我认为主要原因是缺乏对非阻塞I/O的支持。
+
+java.io包几乎包含所有的输入、输出需要的类，io流操作支持多种格式（基本类型、对象、本地化字符集等）；同时Java为I/O提供强大而灵活的支持，士气广泛应用到文件传输和网络编程中。
+
+### 控制台IO
+
+```
+import java.io.*;
+public class ConsoleIoDemo {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	
+		// read char
+		
+		char c = (char) br.read();
+		String str = br.readLine();
+		
+		System.out.println("first letter is:" + c);
+		System.out.println("input string is:" + str);
+	}
+
+}
+```
+
+运行结果：
+```
+hello
+first letter is:h
+input string is:ello
+```
+
+* System.in 控制台输入，对应输出System.out
+* read 读取一个字符
+* readLine 读取一行
+* println，print，write 输出到控制台
+
+### 文件IO
+输入流从源读取数据，输出流向目标写数据。Java中使用FileInputStream和FileOutputStream读写文件。
+
+使用输入流读文件：
+```java
+// 文件名构造输入流
+InputStream f = new FileInputStream("/usr/local/test.txt");
+
+// 文件句柄构造输入流
+File f = new File("/usr/local/test.txt");
+InputStream ifstream = new FileInputStream(f);
+
+// 读取文件
+ifstream.read();
+```
+
+使用输出流写文件：
+```java
+// 文件名构造输入流
+OutputStream f = new FileOutputStream("/usr/local/test.txt");
+
+// 文件句柄构造输入流
+File f = new File("/usr/local/test.txt");
+OutputStream ofstream = new FileOutputStream(f);
+
+// 读取文件
+ofstream.write('A');
+```
+
+
